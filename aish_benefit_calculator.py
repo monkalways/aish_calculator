@@ -11,19 +11,19 @@ st.write("This is a simple benefit calculator for a single person based on input
 st.subheader("AISH Policy Data")
 
 # Read-only inputs for AISH Policy Data
-aish_living_allowance = st.number_input("AISH Living Allowance", value=1863)
-per_diem = st.number_input("Per Diem", value=426)
-employment_income_threshold = st.number_input("Employment Income Threshold", value=1072)
-employment_income_allowed_exemption_threshold = st.number_input("Employment Income Allowed Exemption Threshold", value=1541)
-partially_exempt_income_threshold = st.number_input("Partially Exempt Income Threshold", value=300)
+aish_living_allowance = st.number_input("AISH Living Allowance", value=1863.0, format="%.2f")
+per_diem = st.number_input("Per Diem", value=426.0, format="%.2f")
+employment_income_threshold = st.number_input("Employment Income Threshold", value=1072.0, format="%.2f")
+employment_income_allowed_exemption_threshold = st.number_input("Employment Income Allowed Exemption Threshold", value=1541.0, format="%.2f")
+partially_exempt_income_threshold = st.number_input("Partially Exempt Income Threshold", value=300.0, format="%.2f")
 
 # Section: Income
-st.subheader("Income")
+st.subheader("Client Data")
 
 # Inputs for Income
-employment_income = st.number_input("Employment Income", value=1000)
-partially_exempt_income = st.number_input("Partially Exempt Income", value=200)
-non_exempt_income = st.number_input("Non-Exempt Income", value=30)
+employment_income = st.number_input("Employment Income", value=1000.0, format="%.2f")
+partially_exempt_income = st.number_input("Partially Exempt Income", value=200.0, format="%.2f")
+non_exempt_income = st.number_input("Non-Exempt Income", value=30.0, format="%.2f")
 
 # Total Income Calculation
 total_income = employment_income + partially_exempt_income + non_exempt_income
@@ -70,11 +70,11 @@ def call_rest_api(employment_income_threshold, employment_income_allowed_exempti
 if st.button("Calculate Benefit"):
   estimated_benefit, income_exemption, employment_exemption, total_income, total_needs = call_rest_api(employment_income_threshold, employment_income_allowed_exemption_threshold, partially_exempt_income_threshold, aish_living_allowance, per_diem, employment_income, partially_exempt_income, non_exempt_income)
   st.write("### Calculation Results")
+  st.write(f"**Estimated Benefit Amount: ${estimated_benefit:,.2f}**")
   results = {
       "Income Exemption": f"${income_exemption:,}",
       "Employment Exemption": f"${employment_exemption:,}",
       "Total Income": f"${total_income:,}",
-      "Total Needs": f"${total_needs:,}",
-      "Estimated Benefit Amount": f"${estimated_benefit:,}"
+      "Total Needs": f"${total_needs:,}"
   }
-  st.table([{"Item": k, "Amount": v} for k, v in results.items()])
+  st.table([{"Intermediate Item": k, "Amount": v} for k, v in results.items()])
