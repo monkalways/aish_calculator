@@ -2,9 +2,16 @@ import streamlit as st
 import streamlit_authenticator as stauth
 from streamlit_authenticator.utilities.hasher import Hasher
 import requests
-
 import yaml
 from yaml.loader import SafeLoader
+
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 with open('./config.yaml') as file:
   config = yaml.load(file, Loader=SafeLoader)
