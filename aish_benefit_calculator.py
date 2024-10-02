@@ -22,7 +22,7 @@ authenticator = stauth.Authenticate(
 )
 
 # Login widget
-authenticator.login("main", fields={'Form name': 'AISH Benefit Calculator'})
+authenticator.login("main", fields={'Form name': 'LISA/Mainframe Project - Camunda 7 PoC'})
 
 if st.session_state['authentication_status']:
   authenticator.logout()
@@ -46,7 +46,6 @@ if st.session_state['authentication_status']:
     employment_income_allowed_exemption_threshold = st.number_input("Employment Income Allowed Exemption Threshold", value=1541.0, format="%.2f")
     partially_exempt_income_threshold = st.number_input("Partially Exempt Income Threshold", value=300.0, format="%.2f")
 
-    # Section: Income
     st.subheader("Client Data")
 
     # Inputs for Income
@@ -93,15 +92,15 @@ if st.session_state['authentication_status']:
         total_needs = 0
       return estimated_benefit, income_exemption, employment_exemption, total_income, total_needs
 
-    if st.button("Calculate Benefit"):
+    if st.button("Calculate Benefit", key="calculate_benefit", type="primary"):
       estimated_benefit, income_exemption, employment_exemption, total_income, total_needs = call_rest_api(employment_income_threshold, employment_income_allowed_exemption_threshold, partially_exempt_income_threshold, aish_living_allowance, per_diem, employment_income, partially_exempt_income, non_exempt_income)
       st.write("### Calculation Results")
       st.write(f"#### Estimated Benefit Amount: ${estimated_benefit:,.2f}")
       results = {
-          "Income Exemption": f"${income_exemption:,}",
-          "Employment Exemption": f"${employment_exemption:,}",
-          "Total Income": f"${total_income:,}",
-          "Total Needs": f"${total_needs:,}"
+        "Income Exemption": f"${income_exemption:,}",
+        "Employment Exemption": f"${employment_exemption:,}",
+        "Total Income": f"${total_income:,}",
+        "Total Needs": f"${total_needs:,}"
       }
       with st.expander("Show Calculation Details"):
         st.table([{"Intermediate Item": k, "Amount": v} for k, v in results.items()])
