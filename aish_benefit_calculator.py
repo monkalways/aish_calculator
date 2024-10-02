@@ -137,28 +137,28 @@ if st.session_state['authentication_status']:
     
     st.subheader("Decision Model")
     st.image("images/DMN.png", caption="Decision Model", use_column_width=True)
-    with st.expander("Show Employment Income Exemption Model"):
+    with st.expander("Employment Income Exemption Model"):
       st.image("images/employment_income_exemption.png", caption="Employment Income Exemption", use_column_width=True)
     
-    with st.expander("Show Employment Income Above Threshold Allowed Exemption Model"):
+    with st.expander("Employment Income Above Threshold Allowed Exemption Model"):
       st.image("images/employment_income_above_threshold_allowed_exemption.png", caption="Employment Income Above Threshold Allowed Exemption", use_column_width=True)
     
-    with st.expander("Show Final Employment Income Exemption Model"):
+    with st.expander("Final Employment Income Exemption Model"):
       st.image("images/final_employment_income_exemption.png", caption="Final Employment Income Exemption", use_column_width=True)
     
-    with st.expander("Show Partially Exempt Income Exemption Model"):
+    with st.expander("Partially Exempt Income Exemption Model"):
       st.image("images/partially_exempt_income_exemption.png", caption="Partially Exempt Income", use_column_width=True)
     
-    with st.expander("Show Final Partially Exempt Income Exemption Model"):
+    with st.expander("Final Partially Exempt Income Exemption Model"):
       st.image("images/final_partially_exempt_income_exemption.png", caption="Final Partially Exempt Income", use_column_width=True)
     
-    with st.expander("Show Total Income Model"):
+    with st.expander("Total Income Model"):
       st.image("images/total_income.png", caption="Total Income", use_column_width=True)
     
-    with st.expander("Show Total Needs Model"):
+    with st.expander("Total Needs Model"):
       st.image("images/total_needs.png", caption="Total Needs", use_column_width=True)
     
-    with st.expander("Show Single Person Benefit Amount Model"):
+    with st.expander("Single Person Benefit Amount Model"):
       st.image("images/single_person_benefit_amount.png", caption="Single Person Benefit Amount", use_column_width=True)
     
   with tab4:
