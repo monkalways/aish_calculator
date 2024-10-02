@@ -1,0 +1,17 @@
+credentials:
+  usernames:
+    aish:
+      email: jsmith@gmail.com
+      name: John Smith
+      password: aish # To be replaced with hashed password
+    wwei:
+      email: rbriggs@gmail.com
+      name: Rebecca Briggs
+      password: wwei # To be replaced with hashed password
+cookie:
+  expiry_days: 30
+  key: random_signature_key # Must be string
+  name: random_cookie_name
+preauthorized:
+  emails:
+    - melsby@gmail.com
