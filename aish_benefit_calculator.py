@@ -54,8 +54,8 @@ if st.session_state['authentication_status']:
     non_exempt_income = st.number_input("Non-Exempt Income", value=30.0, format="%.2f")
 
     # Total Income Calculation
-    total_income = employment_income + partially_exempt_income + non_exempt_income
-    st.write(f"**Total Income: ${total_income:,}**")
+    # total_income = employment_income + partially_exempt_income + non_exempt_income
+    # st.write(f"**Total Income: ${total_income:,}**")
 
     def call_rest_api(employment_income_threshold, employment_income_allowed_exemption_threshold, partially_exempt_income_threshold, aish_living_allowance, per_diem, employment_income, partially_exempt_income, non_exempt_income):
       server_url = "http://wwcamunda7.canadacentral.azurecontainer.io:8080/engine-rest/decision-definition"
