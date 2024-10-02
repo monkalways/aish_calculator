@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="aish_mvp_income_calculator" name="AISH MVP Income Calculator" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.21.0">
+  <decision id="employment_income_exemption" name="Employment Income Exemption">
+    <decisionTable id="DecisionTable_0fdyjg6">
+      <input id="InputClause_1t6t55g" label="p_employment_income_threshold" camunda:inputVariable="p_employment_income_threshold">
+        <inputExpression id="LiteralExpression_0rt6jn8" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="Input_1" label="c_employment_income" biodi:width="221" camunda:inputVariable="c_employment_income">
+        <inputExpression id="InputExpression_1" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="o_employment_income_above_threshold_exemption" typeRef="double" biodi:width="437" />
+      <output id="OutputClause_17ec4kp" name="o_employment_income_below_threshold_exemption" typeRef="double" biodi:width="364" />
+      <rule id="DecisionRule_1vhebqc">
+        <inputEntry id="UnaryTests_04c53c1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mfjp0y">
+          <text>&lt;= p_employment_income_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19odwg2">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kxje84">
+          <text>c_employment_income</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cmi3wd">
+        <inputEntry id="UnaryTests_1bznthr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04er7v0">
+          <text>&gt; p_employment_income_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02uw5ef">
+          <text>(c_employment_income - 1072) * 0.5 + p_employment_income_threshold</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jx4pei">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="employment_income_above_threshold_allowed_exemption" name="Employment Income Above Threshold Allowed Exemption">
+    <informationRequirement id="InformationRequirement_01d00ka">
+      <requiredDecision href="#employment_income_exemption" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_001if3k">
+      <input id="InputClause_0n6p3yl" label="p_employment_income_allowed_exemption_threshold" biodi:width="422">
+        <inputExpression id="LiteralExpression_1soobcp" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0zil0o3" label="o_employment_income_above_threshold_exemption" biodi:width="422" camunda:inputVariable="o_employment_income_above_threshold_exemption">
+        <inputExpression id="LiteralExpression_0q04trw" typeRef="double" />
+      </input>
+      <output id="OutputClause_18acee0" name="o_employment_income_above_threshold_allowed_exemption" typeRef="double" biodi:width="499" />
+      <rule id="DecisionRule_1s6c5qy">
+        <inputEntry id="UnaryTests_1n8t3dj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02pluxp">
+          <text>&lt;= p_employment_income_allowed_exemption_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k8dy9c">
+          <text>o_employment_income_above_threshold_exemption</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1niv8u4">
+        <inputEntry id="UnaryTests_1ihrtfc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ydbi0i">
+          <text>&gt;p_employment_income_allowed_exemption_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xi9jfb">
+          <text>p_employment_income_allowed_exemption_threshold</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="pe_income_exemption" name="Partially Exempt Income Exemption">
+    <decisionTable id="DecisionTable_1ehwy82">
+      <input id="InputClause_1v99uof" label="p_pe_income_threshold" camunda:inputVariable="p_pe_income_threshold">
+        <inputExpression id="LiteralExpression_0kld5pl" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1cfyu9m" label="c_pe_income" biodi:width="270" camunda:inputVariable="c_pe_income">
+        <inputExpression id="LiteralExpression_0175nq9" typeRef="double" />
+      </input>
+      <output id="OutputClause_02jggvd" name="o_pe_income_below_threshold_exemption" typeRef="double" biodi:width="415" />
+      <output id="OutputClause_0fpl7rp" name="o_pe_income_above_threshold_exemption" typeRef="double" biodi:width="376" />
+      <rule id="DecisionRule_0pkgn5p">
+        <inputEntry id="UnaryTests_1219sol">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c94tb0">
+          <text>&lt;=p_pe_income_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mir09n">
+          <text>c_pe_income</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uaixdd">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fv3irk">
+        <inputEntry id="UnaryTests_0u2id5l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09t0x9o">
+          <text>&gt;p_pe_income_threshold</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00xcwch">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h1jjby">
+          <text>(c_pe_income - p_pe_income_threshold) * 0.25 + p_pe_income_threshold</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="final_employment_income_exemption" name="Final Employment Income Exemption">
+    <informationRequirement id="InformationRequirement_156cs98">
+      <requiredDecision href="#employment_income_exemption" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_01t1eou">
+      <requiredDecision href="#employment_income_above_threshold_allowed_exemption" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0mdpgpy">
+      <input id="InputClause_0p8evn3" label="o_employment_income_below_threshold_exemption" camunda:inputVariable="o_employment_income_below_threshold_exemption">
+        <inputExpression id="LiteralExpression_14qozpn" typeRef="double" />
+      </input>
+      <input id="InputClause_10r6lf0" label="o_employment_income_above_threshold_allowed_exemption" camunda:inputVariable="o_employment_income_above_threshold_allowed_exemption">
+        <inputExpression id="LiteralExpression_1wgd0q4" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0uc5t5u" name="o_employment_income_final_exemption" typeRef="double" />
+      <rule id="DecisionRule_1dgrow8">
+        <inputEntry id="UnaryTests_0xx6oj1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sopsh4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fz3o2r">
+          <text>o_employment_income_below_threshold_exemption + o_employment_income_above_threshold_allowed_exemption</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="finally_pe_income_exemption" name="Final Partially Exempt Income Exemption">
+    <informationRequirement id="InformationRequirement_1l78whc">
+      <requiredDecision href="#pe_income_exemption" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0of9wq5">
+      <input id="InputClause_0in6hj0" label="o_pe_income_below_threshold_exemption" camunda:inputVariable="o_pe_income_below_threshold_exemption">
+        <inputExpression id="LiteralExpression_0ua1c11" typeRef="double" />
+      </input>
+      <input id="InputClause_0vdeva0" label="o_pe_income_above_threshold_exemption" camunda:inputVariable="o_pe_income_above_threshold_exemption">
+        <inputExpression id="LiteralExpression_1cup5yr" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1b6au19" label="o_pe_income_final_exemption" name="o_pe_income_final_exemption" typeRef="double" />
+      <rule id="DecisionRule_1bxrleg">
+        <inputEntry id="UnaryTests_0qpmpzh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07gt3cv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0550i3g">
+          <text>o_pe_income_below_threshold_exemption + o_pe_income_above_threshold_exemption</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="total_needs" name="Total Needs">
+    <informationRequirement id="InformationRequirement_0mjo2dl">
+      <requiredDecision href="#final_employment_income_exemption" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1tvtsoo">
+      <requiredDecision href="#finally_pe_income_exemption" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_06bz0j9">
+      <input id="InputClause_0iqradt" label="p_living_allowance" biodi:width="225" camunda:inputVariable="p_aish_living_allowance">
+        <inputExpression id="LiteralExpression_0s1bpsl" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1hrbd7l" label="p_per_diem" biodi:width="150" camunda:inputVariable="p_per_diem">
+        <inputExpression id="LiteralExpression_1iio5j6" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1y62azm" label="o_employment_income_final_exemption" biodi:width="317" camunda:inputVariable="o_employment_income_final_exemption">
+        <inputExpression id="LiteralExpression_0kxgmmq" typeRef="double" />
+      </input>
+      <input id="InputClause_0jb3yyw" label="o_pe_income_final_exemption" biodi:width="248" camunda:inputVariable="o_pe_income_final_exemption">
+        <inputExpression id="LiteralExpression_1kl7l4j" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_19rtjks" label="total_needs" name="total_needs" typeRef="double" biodi:width="367" />
+      <rule id="DecisionRule_1rmqof0">
+        <inputEntry id="UnaryTests_1kn0ks7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12z185e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15bc6m1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sppkt4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nn0qza">
+          <text>p_living_allowance + o_employment_income_final_exemption + o_pe_income_final_exemption - p_per_diem</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="total_income" name="Total Income">
+    <decisionTable id="DecisionTable_1rf6ijm">
+      <input id="InputClause_080o41i" label="c_employment_income" camunda:inputVariable="c_employment_income">
+        <inputExpression id="LiteralExpression_10s3wfo" typeRef="double" />
+      </input>
+      <input id="InputClause_1h8bca2" label="c_pe_income" camunda:inputVariable="c_pe_income">
+        <inputExpression id="LiteralExpression_1wla3d4" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_066d1ao" label="c_ne_income" camunda:inputVariable="c_ne_income">
+        <inputExpression id="LiteralExpression_0tubi7l" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0z9wk41" label="total_income" name="total_income" typeRef="double" />
+      <rule id="DecisionRule_10jdjas">
+        <inputEntry id="UnaryTests_0hwokw9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16pynbh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m6dtwe">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uq48iu">
+          <text>c_employment_income + c_pe_income + c_ne_income</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="single_person_benefit_amount" name="Single Person Benefit Amount">
+    <informationRequirement id="InformationRequirement_0ex8ujb">
+      <requiredDecision href="#total_needs" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1a75qzc">
+      <requiredDecision href="#total_income" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1ydbly6">
+      <input id="InputClause_1sh5le6" label="total_needs" camunda:inputVariable="total_needs">
+        <inputExpression id="LiteralExpression_1dtqygn" typeRef="double" />
+      </input>
+      <input id="InputClause_1a3m528" label="total_income" camunda:inputVariable="total_income">
+        <inputExpression id="LiteralExpression_14g8f98" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0sl8nkd" label="o_employment_income_final_exemption" camunda:inputVariable="o_employment_income_final_exemption">
+        <inputExpression id="LiteralExpression_0wf18hg" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1iqyrhv" label="o_pe_income_final_exemption" camunda:inputVariable="o_pe_income_final_exemption">
+        <inputExpression id="LiteralExpression_1mx6lsk" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1h19k1e" label="total_income" camunda:inputVariable="total_income">
+        <inputExpression id="LiteralExpression_03ewyto" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0upbh34" label="total_needs" camunda:inputVariable="total_needs">
+        <inputExpression id="LiteralExpression_08eujb2" typeRef="double">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1wlm3h5" label="single_person_benefit_amount" name="single_person_benefit_amount" typeRef="double" biodi:width="255" />
+      <output id="OutputClause_0b8dkwt" label="employment_exemption" name="employment_exemption" typeRef="double" />
+      <output id="OutputClause_1pzu070" label="income_exemption" name="income_exemption" typeRef="double" />
+      <output id="OutputClause_0truvwn" label="o_total_income" name="o_total_income" typeRef="double" />
+      <output id="OutputClause_1awplmg" name="o_total_needs" typeRef="double" />
+      <rule id="DecisionRule_1erae6r">
+        <inputEntry id="UnaryTests_1ho7sgl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0627c5y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h6gg8q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15rngbr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09vn249">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19q36b1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hgzg08">
+          <text>total_needs - total_income</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wzu91m">
+          <text>o_employment_income_final_exemption</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fn1uou">
+          <text>o_pe_income_final_exemption</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rxdl6k">
+          <text>total_income</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1l0rjcd">
+          <text>total_needs</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="employment_income_exemption">
+        <dc:Bounds height="80" width="180" x="390" y="690" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1l5rned" dmnElementRef="InformationRequirement_01d00ka">
+        <di:waypoint x="480" y="690" />
+        <di:waypoint x="250" y="660" />
+        <di:waypoint x="250" y="640" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1q5jxin" dmnElementRef="employment_income_above_threshold_allowed_exemption">
+        <dc:Bounds height="80" width="180" x="160" y="560" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1gor1xf" dmnElementRef="pe_income_exemption">
+        <dc:Bounds height="80" width="180" x="790" y="690" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1jrb9jf" dmnElementRef="final_employment_income_exemption">
+        <dc:Bounds height="80" width="180" x="360" y="420" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0d5kuap" dmnElementRef="InformationRequirement_156cs98">
+        <di:waypoint x="480" y="690" />
+        <di:waypoint x="480" y="520" />
+        <di:waypoint x="480" y="500" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1e4xbyf" dmnElementRef="InformationRequirement_01t1eou">
+        <di:waypoint x="250" y="560" />
+        <di:waypoint x="420" y="520" />
+        <di:waypoint x="420" y="500" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_18brvp7" dmnElementRef="finally_pe_income_exemption">
+        <dc:Bounds height="80" width="180" x="790" y="420" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0l17ips" dmnElementRef="InformationRequirement_1l78whc">
+        <di:waypoint x="880" y="690" />
+        <di:waypoint x="880" y="520" />
+        <di:waypoint x="880" y="500" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_05ti5km" dmnElementRef="total_needs">
+        <dc:Bounds height="80" width="180" x="560" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_04m8coq" dmnElementRef="InformationRequirement_0mjo2dl">
+        <di:waypoint x="450" y="420" />
+        <di:waypoint x="620" y="330" />
+        <di:waypoint x="620" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1ynq7gt" dmnElementRef="InformationRequirement_1tvtsoo">
+        <di:waypoint x="880" y="420" />
+        <di:waypoint x="680" y="330" />
+        <di:waypoint x="680" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1wvc1mh" dmnElementRef="total_income">
+        <dc:Bounds height="80" width="180" x="1020" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0sf60vt" dmnElementRef="single_person_benefit_amount">
+        <dc:Bounds height="80" width="180" x="780" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0ebxj91" dmnElementRef="InformationRequirement_0ex8ujb">
+        <di:waypoint x="650" y="230" />
+        <di:waypoint x="840" y="180" />
+        <di:waypoint x="840" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1hqtjxb" dmnElementRef="InformationRequirement_1a75qzc">
+        <di:waypoint x="1110" y="230" />
+        <di:waypoint x="900" y="180" />
+        <di:waypoint x="900" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
