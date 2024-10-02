@@ -1,6 +1,5 @@
 import streamlit as st
 import requests
-import os
 
 # Set up the main section layout
 st.title("Single Person - Benefit Calculator")
@@ -113,15 +112,30 @@ with tab2:
 with tab3:
   
   st.subheader("Decision Model")
-
-  # Get list of all images in the 'images' folder
-  image_folder = "images"
-  image_files = [f for f in os.listdir(image_folder) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
-
-  # Display each image with its filename as caption
-  for image_file in image_files:
-    image_path = os.path.join(image_folder, image_file)
-    st.image(image_path, caption=image_file, use_column_width=True)
+  st.image("images/DMN.png", caption="Decision Model", use_column_width=True)
+  with st.expander("Show Employment Income Exemption Model"):
+    st.image("images/employment_income_exemption.png", caption="Employment Income Exemption", use_column_width=True)
+  
+  with st.expander("Show Employment Income Above Threshold Allowed Exemption Model"):
+    st.image("images/employment_income_above_threshold_allowed_exemption.png", caption="Employment Income Above Threshold Allowed Exemption", use_column_width=True)
+  
+  with st.expander("Show Final Employment Income Exemption Model"):
+    st.image("images/final_employment_income_exemption.png", caption="Final Employment Income Exemption", use_column_width=True)
+  
+  with st.expander("Show Partially Exempt Income Exemption Model"):
+    st.image("images/partially_exempt_income_exemption.png", caption="Partially Exempt Income", use_column_width=True)
+  
+  with st.expander("Show Final Partially Exempt Income Exemption Model"):
+    st.image("images/final_partially_exempt_income_exemption.png", caption="Final Partially Exempt Income", use_column_width=True)
+  
+  with st.expander("Show Total Income Model"):
+    st.image("images/total_income.png", caption="Total Income", use_column_width=True)
+  
+  with st.expander("Show Total Needs Model"):
+    st.image("images/total_needs.png", caption="Total Needs", use_column_width=True)
+  
+  with st.expander("Show Single Person Benefit Amount Model"):
+    st.image("images/single_person_benefit_amount.png", caption="Single Person Benefit Amount", use_column_width=True)
   
 with tab4:
   st.subheader("Camunda API - Evaluate Decision")
