@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import os
 
 # Set up the main section layout
 st.title("Single Person - Benefit Calculator")
@@ -112,7 +113,15 @@ with tab2:
 with tab3:
   
   st.subheader("Decision Model")
-  st.image("DMN.png", caption="Decision Model", use_column_width=True)
+
+  # Get list of all images in the 'images' folder
+  image_folder = "images"
+  image_files = [f for f in os.listdir(image_folder) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+
+  # Display each image with its filename as caption
+  for image_file in image_files:
+    image_path = os.path.join(image_folder, image_file)
+    st.image(image_path, caption=image_file, use_column_width=True)
   
 with tab4:
   st.subheader("Camunda API - Evaluate Decision")
