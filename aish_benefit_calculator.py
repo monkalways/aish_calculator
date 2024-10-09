@@ -21,7 +21,7 @@ authenticator = stauth.Authenticate(
 )
 
 # Login widget
-authenticator.login("main", fields={'Form name': 'AISH Benefit Calculator MVP'})
+authenticator.login("main", fields={'Form name': 'AISH Benefit Calculator PoC v1 '})
 
 if st.session_state['authentication_status']:
   authenticator.logout()
