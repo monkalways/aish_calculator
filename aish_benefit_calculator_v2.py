@@ -38,7 +38,7 @@ def render_calculation_results(aish_living_allowance, child_supplement, employme
   col1, col2 = st.columns([2, 1])
 
   # First row - Employment Income above exemption
-  col1.write("Net Benefits")
+  col1.write("**Net Benefits**")
   col2.write(f"**${family_benefit_amount:,}**")
  
 with open('./config.yaml') as file:
